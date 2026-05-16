@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.open-meteo.com/v1/forecast?current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&forecast_days=5&latitude=37.7749&longitude=-122.4194&temperature_unit=fahrenheit&timezone=auto
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 May 2026 02:48:31 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJsYXRpdHVkZSI6MzcuNzYzMjgzLCJsb25naXR1ZGUiOi0xMjIuNDEyODYsImdlbmVyYXRpb250aW1lX21zIjowLjM1MTU0ODE5NDg4NTI1MzksInV0Y19vZmZzZXRfc2Vjb25kcyI6LTI1MjAwLCJ0aW1lem9uZSI6IkFtZXJpY2EvTG9zX0FuZ2VsZXMiLCJ0aW1lem9uZV9hYmJyZXZpYXRpb24iOiJHTVQtNyIsImVsZXZhdGlvbiI6MTguMCwiY3VycmVudF93ZWF0aGVyX3VuaXRzIjp7InRpbWUiOiJpc284NjAxIiwiaW50ZXJ2YWwiOiJzZWNvbmRzIiwidGVtcGVyYXR1cmUiOiLCsEYiLCJ3aW5kc3BlZWQiOiJrbS9oIiwid2luZGRpcmVjdGlvbiI6IsKwIiwiaXNfZGF5IjoiIiwid2VhdGhlcmNvZGUiOiJ3bW8gY29kZSJ9LCJjdXJyZW50X3dlYXRoZXIiOnsidGltZSI6IjIwMjYtMDUtMTdUMTk6NDUiLCJpbnRlcnZhbCI6OTAwLCJ0ZW1wZXJhdHVyZSI6NjcuOSwid2luZHNwZWVkIjoyNS41LCJ3aW5kZGlyZWN0aW9uIjo5LCJpc19kYXkiOjEsIndlYXRoZXJjb2RlIjowfSwiZGFpbHlfdW5pdHMiOnsidGltZSI6Imlzbzg2MDEiLCJ0ZW1wZXJhdHVyZV8ybV9tYXgiOiLCsEYiLCJ0ZW1wZXJhdHVyZV8ybV9taW4iOiLCsEYiLCJ3ZWF0aGVyY29kZSI6IndtbyBjb2RlIn0sImRhaWx5Ijp7InRpbWUiOlsiMjAyNi0wNS0xNyIsIjIwMjYtMDUtMTgiLCIyMDI2LTA1LTE5IiwiMjAyNi0wNS0yMCIsIjIwMjYtMDUtMjEiXSwidGVtcGVyYXR1cmVfMm1fbWF4IjpbNzQuMyw4MS42LDg1LjUsNzUuMSw3Ny4xXSwidGVtcGVyYXR1cmVfMm1fbWluIjpbNDkuOSw2MC4zLDU3LjEsNTQuMyw1Mi42XSwid2VhdGhlcmNvZGUiOlswLDAsMCwzLDFdfX0=
+  recorded_at: Mon, 18 May 2026 02:48:31 GMT
+recorded_with: VCR 6.4.0
