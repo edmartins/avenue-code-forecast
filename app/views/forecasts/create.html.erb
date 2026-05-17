@@ -1,0 +1,45 @@
+<% content_for :title, "Forecast — Avenue Code Forecast" %>
+
+<% forecast = @result.forecast %>
+<% unit_symbol = forecast.units == :fahrenheit ? "°F" : "°C" %>
+
+<article class="forecast">
+  <header class="forecast-header">
+    <h2><%= forecast.location_name %></h2>
+    <p class="zip">ZIP <%= @result.zip %></p>
+
+    <% if @result.from_cache %>
+      <p class="cache-badge" data-testid="cache-badge">
+        Served from cache (refreshes every 30 minutes per ZIP)
+      </p>
+    <% end %>
+  </header>
+
+  <section class="current">
+    <p class="current-temp">
+      <span class="value"><%= forecast.current_temp %></span><span class="unit"><%= unit_symbol %></span>
+    </p>
+    <p class="today-range">
+      Today: high <%= forecast.high %><%= unit_symbol %> / low <%= forecast.low %><%= unit_symbol %>
+    </p>
+  </section>
+
+  <section class="daily">
+    <h3>5-day outlook</h3>
+    <ol class="daily-list">
+      <% forecast.daily.each do |day| %>
+        <li>
+          <span class="date"><%= day.date.strftime("%a, %b %-d") %></span>
+          <span class="range">
+            <%= day.high %><%= unit_symbol %> /
+            <span class="low"><%= day.low %><%= unit_symbol %></span>
+          </span>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+
+  <p class="actions">
+    <%= link_to "Look up another address", root_path, class: "btn-secondary" %>
+  </p>
+</article>

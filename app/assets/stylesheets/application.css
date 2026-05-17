@@ -1,10 +1,177 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* Minimal styling — the form and the forecast layout are the priority. */
+
+:root {
+  --fg: #1c1f24;
+  --muted: #6b7280;
+  --bg: #fafafa;
+  --card: #ffffff;
+  --accent: #1e4ed8;
+  --border: #e5e7eb;
+  --error-bg: #fef2f2;
+  --error-fg: #991b1b;
+  --cache-bg: #fef3c7;
+  --cache-fg: #92400e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  margin: 0 0 1.5rem;
+}
+
+header h1 a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.lead {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.forecast-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-weight: 600;
+}
+
+.field input {
+  font: inherit;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.field input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.flash {
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.flash-alert {
+  background: var(--error-bg);
+  color: var(--error-fg);
+}
+
+.forecast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.forecast-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.zip {
+  color: var(--muted);
+  margin: 0.2rem 0 0.75rem;
+}
+
+.cache-badge {
+  display: inline-block;
+  background: var(--cache-bg);
+  color: var(--cache-fg);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.current-temp {
+  margin: 0.5rem 0;
+}
+
+.current-temp .value {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.current-temp .unit {
+  font-size: 1.5rem;
+  color: var(--muted);
+  margin-left: 0.2rem;
+}
+
+.today-range {
+  color: var(--muted);
+  margin: 0 0 1.5rem;
+}
+
+.daily h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.daily-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.daily-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.daily-list .low {
+  color: var(--muted);
+}
+
+.actions {
+  margin-top: 1.5rem;
+}

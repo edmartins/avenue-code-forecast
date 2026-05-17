@@ -1,0 +1,20 @@
+<% content_for :title, "Avenue Code Forecast" %>
+
+<section class="lead">
+  <p>Enter any address — a street, city, postal code — and we'll pull the current temperature and the 5-day outlook for that area.</p>
+</section>
+
+<%= form_with url: forecasts_path, method: :post, local: true, class: "forecast-form" do |f| %>
+  <div class="field">
+    <%= f.label :address, "Address" %>
+    <%= f.text_field :address,
+          value: params[:address],
+          autofocus: true,
+          required: true,
+          maxlength: 200,
+          placeholder: "e.g. 350 5th Ave, New York, NY",
+          autocomplete: "off" %>
+  </div>
+
+  <%= f.submit "Get forecast", class: "btn-primary" %>
+<% end %>
