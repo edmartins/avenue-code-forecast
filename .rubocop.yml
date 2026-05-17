@@ -1,0 +1,13 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "config/initializers/inflections.rb"
