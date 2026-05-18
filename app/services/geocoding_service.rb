@@ -3,7 +3,7 @@ class GeocodingService
 
   Location = Data.define(:zip, :lat, :lon, :formatted_address)
 
-  def call(address)
+  def geocode(address)
     cleaned = address.to_s.strip
     raise AddressNotFound, "address is blank" if cleaned.empty?
 

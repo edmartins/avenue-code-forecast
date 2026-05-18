@@ -29,7 +29,7 @@ class ForecastService
   end
 
   def location
-    @location ||= geocoding_service.call(address)
+    @location ||= geocoding_service.geocode(address)
   end
 
   def fresh

@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe GeocodingService do
-  describe "#call" do
+  describe "#geocode" do
     context "with a recognizable address", vcr: { cassette_name: "geocoding_service/white_house" } do
-      subject(:result) { described_class.new.call("1600 Pennsylvania Ave, Washington DC") }
+      subject(:result) { described_class.new.geocode("1600 Pennsylvania Ave, Washington DC") }
 
       it "returns a Location with a postal code" do
         expect(result.zip).to match(/\A\d{5}\z/)
@@ -21,21 +21,21 @@ RSpec.describe GeocodingService do
 
     context "with an unrecognizable address", vcr: { cassette_name: "geocoding_service/unrecognizable" } do
       it "raises AddressNotFound" do
-        expect { described_class.new.call("asdfasdfgargle_no_such_place_zzz") }
+        expect { described_class.new.geocode("asdfasdfgargle_no_such_place_zzz") }
           .to raise_error(GeocodingService::AddressNotFound)
       end
     end
 
     context "when the result has no postal code", vcr: { cassette_name: "geocoding_service/no_postal_code" } do
       it "raises AddressNotFound" do
-        expect { described_class.new.call("middle of the ocean") }
+        expect { described_class.new.geocode("middle of the ocean") }
           .to raise_error(GeocodingService::AddressNotFound)
       end
     end
 
     context "with blank input" do
       it "raises AddressNotFound without calling the geocoder" do
-        expect { described_class.new.call("   ") }
+        expect { described_class.new.geocode("   ") }
           .to raise_error(GeocodingService::AddressNotFound)
 
         expect(WebMock).not_to have_requested(:get, /nominatim/)

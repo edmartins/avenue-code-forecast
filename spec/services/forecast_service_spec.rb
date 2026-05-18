@@ -20,7 +20,7 @@ RSpec.describe ForecastService do
       units: :fahrenheit
     )
   end
-  let(:geocoding_service) { instance_double(GeocodingService, call: location) }
+  let(:geocoding_service) { instance_double(GeocodingService, geocode: location) }
   let(:weather_service) { instance_double(WeatherService, fetch: forecast) }
   let(:cache_key) { "forecast:v1:94105" }
 
@@ -61,7 +61,7 @@ RSpec.describe ForecastService do
     context "when geocoding fails" do
       let(:address) { "" }
 
-      before { allow(geocoding_service).to receive(:call).and_raise(GeocodingService::AddressNotFound, "blank") }
+      before { allow(geocoding_service).to receive(:geocode).and_raise(GeocodingService::AddressNotFound, "blank") }
 
       it "propagates AddressNotFound and never touches the weather service or cache" do
         expect { result }.to raise_error(GeocodingService::AddressNotFound)
