@@ -17,7 +17,8 @@ RSpec.describe ForecastService do
       high: 65.0,
       low: 50.0,
       daily: [],
-      units: :fahrenheit
+      units: :fahrenheit,
+      location_name: nil
     )
   end
   let(:geocoding_service) { instance_double(GeocodingService, geocode: location) }

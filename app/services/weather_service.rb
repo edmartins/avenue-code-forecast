@@ -46,7 +46,8 @@ class WeatherService
       high: daily_entries.first.high,
       low: daily_entries.first.low,
       daily: daily_entries,
-      units: units
+      units: units,
+      location_name: nil
     )
   end
 
