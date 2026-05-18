@@ -4,7 +4,7 @@
   <p>Enter any address (a street, city, or postal code) and we'll pull the current temperature and the 5-day outlook for that area.</p>
 </section>
 
-<%= form_with url: forecasts_path, method: :post, local: true, class: "forecast-form" do |f| %>
+<%= form_with url: forecasts_path, method: :post, data: { turbo: false }, class: "forecast-form" do |f| %>
   <div class="field">
     <%= f.label :address, "Address" %>
     <%= f.text_field :address,
