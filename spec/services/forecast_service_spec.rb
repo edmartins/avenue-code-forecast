@@ -69,5 +69,14 @@ RSpec.describe ForecastService do
         expect(weather_service).not_to have_received(:fetch)
       end
     end
+
+    context "when the weather service fails" do
+      before { allow(weather_service).to receive(:fetch).and_raise(WeatherService::UpstreamError, "boom") }
+
+      it "propagates UpstreamError and leaves the cache untouched" do
+        expect { result }.to raise_error(WeatherService::UpstreamError)
+        expect(Rails.cache.read(cache_key)).to be_nil
+      end
+    end
   end
 end

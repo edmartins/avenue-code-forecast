@@ -23,6 +23,13 @@ RSpec.describe "Forecasts", type: :request do
     it { expect(response.body).to include("address") }
   end
 
+  describe "GET /forecasts/new" do
+    before { get "/forecasts/new" }
+
+    it { expect(response).to have_http_status(:ok) }
+    it { expect(response.body).to include("address") }
+  end
+
   describe "POST /forecasts" do
     subject(:post_forecasts) { post "/forecasts", params: { address: } }
 
@@ -56,6 +63,7 @@ RSpec.describe "Forecasts", type: :request do
 
       before { post_forecasts }
 
+      it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response.body).to include("Please enter an address") }
     end
 
@@ -68,15 +76,33 @@ RSpec.describe "Forecasts", type: :request do
       end
 
       context "when the address can't be geocoded" do
-        let(:error) { [GeocodingService::AddressNotFound, "no result"] }
+        let(:error) { [ GeocodingService::AddressNotFound, "no result" ] }
 
+        it { expect(response).to have_http_status(:unprocessable_content) }
         it { expect(response.body).to include("couldn&#39;t find that address") }
       end
 
       context "when the weather upstream fails" do
-        let(:error) { [WeatherService::UpstreamError, "boom"] }
+        let(:error) { [ WeatherService::UpstreamError, "boom" ] }
 
+        it { expect(response).to have_http_status(:bad_gateway) }
         it { expect(response.body).to include("unavailable") }
+      end
+    end
+
+    context "when the rate limit is exceeded" do
+      let(:address) { "San Francisco" }
+      let(:result) { ForecastService::Result.new(forecast:, from_cache: false, zip: "94105") }
+
+      before { allow(ForecastService).to receive(:call).with(address:).and_return(result) }
+
+      it "redirects the 11th request within a minute with a flash alert" do
+        10.times { post "/forecasts", params: { address: } }
+        expect(response).to have_http_status(:ok)
+
+        post "/forecasts", params: { address: }
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to match(/too many requests/i)
       end
     end
   end
