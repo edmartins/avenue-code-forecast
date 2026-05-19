@@ -3,6 +3,10 @@
 Rails app that resolves a free-form address to a zip, fetches current weather
 and a 5-day outlook, and caches the result for 30 minutes per zip.
 
+<img width="651" height="343" alt="image" src="https://github.com/user-attachments/assets/a5443d9e-5b8d-4a0f-b4c5-7ad15d75aed4" />
+
+<img width="656" height="696" alt="image" src="https://github.com/user-attachments/assets/8b0d64b4-9a64-478a-bb28-520fe88cb143" />
+
 No API keys, no database. Uses Open-Meteo (weather) and Nominatim (geocoding),
 both free and keyless.
 
