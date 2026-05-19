@@ -49,15 +49,27 @@ class WeatherService
       units: units,
       location_name: nil
     )
+  rescue KeyError, TypeError, Date::Error, JSON::ParserError => e
+    raise UpstreamError, "malformed response: #{e.class}"
   end
 
   def build_daily_entries(daily)
-    daily.fetch("time").each_with_index.map do |date, i|
+    times = daily.fetch("time")
+    highs = daily.fetch("temperature_2m_max")
+    lows  = daily.fetch("temperature_2m_min")
+    codes = daily.fetch("weathercode")
+
+    raise UpstreamError, "malformed response: empty daily forecast" if times.empty?
+    unless [ highs, lows, codes ].all? { |a| a.is_a?(Array) && a.size == times.size }
+      raise UpstreamError, "malformed response: inconsistent daily arrays"
+    end
+
+    times.each_with_index.map do |date, i|
       Forecast::DailyEntry.new(
         date: Date.parse(date),
-        high: daily.fetch("temperature_2m_max")[i],
-        low: daily.fetch("temperature_2m_min")[i],
-        weather_code: daily.fetch("weathercode")[i]
+        high: highs[i],
+        low: lows[i],
+        weather_code: codes[i]
       )
     end
   end
