@@ -26,7 +26,7 @@ gem "bootsnap", require: false
 gem "thruster", require: false
 
 # HTTP client used by the weather and geocoding services
-gem "faraday", "~> 2.9"
+gem "faraday", "~> 2.14"
 
 # Address -> lat/lon/postal_code resolution (Nominatim/OpenStreetMap by default)
 gem "geocoder", "~> 1.8"
